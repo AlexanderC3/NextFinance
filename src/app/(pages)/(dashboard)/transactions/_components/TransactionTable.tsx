@@ -14,10 +14,10 @@ import { Button } from "@/components/ui/button"
 import { DownloadIcon } from "lucide-react"
 import { getTransactionColumns } from "@/components/datatable/Columns"
 
-interface Props {
-    from: Date,
-    to: Date
-}
+// interface Props {
+//     from: Date,
+//     to: Date
+// }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const emptyData:any[] = [];
@@ -30,13 +30,16 @@ const csvConfig = mkConfig({
     useKeysAsHeaders: true
 })
 
-function TransactionTable({from,to} : Props) {
+// function TransactionTable({from,to} : Props) {
+function TransactionTable() {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     
     const history = useQuery<GetTransactionsHistoryResponseType>({
-        queryKey: ["transactions","history",from,to],
-        queryFn: () => fetch(`/api/transactions-history?from=${from}&to=${to}`).then((res) => res.json())
+        // queryKey: ["transactions","history",from,to],
+        // queryFn: () => fetch(`/api/transactions-history?from=${from}&to=${to}`).then((res) => res.json())
+        queryKey: ["transactions","history"],
+        queryFn: () => fetch(`/api/transactions-history`).then((res) => res.json())
     })
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

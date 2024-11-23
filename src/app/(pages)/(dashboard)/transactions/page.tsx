@@ -1,14 +1,14 @@
 "use client"
 
-import { DateRangePicker } from "@/components/ui/date-range-picker";
-import { MAX_DATE_RANGE_DAYS } from "@/constants/max_days_range";
-import { differenceInDays, startOfMonth } from "date-fns";
-import { useState } from "react";
-import { toast } from "sonner";
+// import { DateRangePicker } from "@/components/ui/date-range-picker";
+// import { MAX_DATE_RANGE_DAYS } from "@/constants/max_days_range";
+// import { differenceInDays, startOfMonth } from "date-fns";
+// import { useState } from "react";
+// import { toast } from "sonner";
 import TransactionTable from "./_components/TransactionTable";
 
 function TransactionsPage() {
-    const [dateRange,setDateRange] = useState<{from:Date; to: Date}>({from: startOfMonth(new Date()), to: new Date()})
+    // const [dateRange,setDateRange] = useState<{from:Date; to: Date}>({from: startOfMonth(new Date()), to: new Date()})
 
   return (
     <>
@@ -17,7 +17,7 @@ function TransactionsPage() {
                 <div>
                     <p className="text-3xl font-bold">Transactions history</p>
                 </div>
-                <DateRangePicker 
+                {/* <DateRangePicker 
                     initialDateFrom={dateRange.from} 
                     initialDateTo={dateRange.to} 
                     showCompare={false} 
@@ -31,11 +31,12 @@ function TransactionsPage() {
 
                         setDateRange({from, to})
                     }}
-                />
+                /> */}
             </div>
         </div>
         <div className="container mx-auto">
-            <TransactionTable from={dateRange.from} to={dateRange.to} />
+            {/* <TransactionTable from={dateRange.from} to={dateRange.to} /> */}
+            <TransactionTable />
         </div>
     </>
   )

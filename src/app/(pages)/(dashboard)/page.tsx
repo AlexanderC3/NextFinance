@@ -18,6 +18,9 @@ async function page() {
     redirect("/wizard")
   }
 
+  // const isVerified = userSettings.verified
+  // if(!isVerified) {return(<div>You are not verified</div>)}
+
   return (
     <div className='h-full bg-background'>
       <div className='border-b bg-card'>
