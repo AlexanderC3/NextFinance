@@ -137,7 +137,8 @@ function CreateTransactionDialog({trigger, type} : Props) {
                                         </FormControl>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-auto p-0">
-                                        <Calendar mode="single" selected={field.value} onSelect={value => {if(!value)return;field.onChange(value)}} initialFocus/>
+                                        {/* <Calendar mode="single" selected={field.value} onSelect={value => {if(!value)return;field.onChange(value)}} initialFocus/> */}
+                                        <Calendar mode="single" selected={field.value} onSelect={value => {if(!value)return;field.onChange(value)}}/>
                                     </PopoverContent>
                                 </Popover>
                                 <FormDescription>
