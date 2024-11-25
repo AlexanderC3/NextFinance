@@ -3,6 +3,7 @@ import { DataTableColumnHeader } from "@/components/datatable/ColumnHeader"
 import { cn } from "@/lib/utils"
 import { GetTransactionsHistoryResponseType } from "@/app/api/transactions-history/route";
 import { TransactionTableRowActions } from "./RowActions";
+import { TrendingDown, TrendingUp } from "lucide-react";
 
 export function getTransactionColumns() {
     type TransactionHistoryRow = GetTransactionsHistoryResponseType[0]
@@ -46,8 +47,13 @@ export function getTransactionColumns() {
               filterFn: (row,id,value) => {
                 return value.includes(row.getValue(id))
             },
-            cell: ({row}) => (<div className={cn("capitalize rounded-lg text-center p-2", 
-                row.original.type === "income" ? "bg-emerald-400/10 text-emerald-500" : "bg-rose-400/10 text-rose-500")}>{row.original.type}</div>)
+            cell: ({row}) => (<div className={cn("capitalize rounded-lg text-center py-2 px-1 flex flex-row gap-2 items-center justify-center", 
+                row.original.type === "income" ? "bg-emerald-400/10 text-emerald-500" : "bg-rose-400/10 text-rose-500")}>
+                {row.original.type === "income" ? 
+                    <TrendingUp className="h-8 w-8 items-cente py-1 text-emerald-500"/> : 
+                    <TrendingDown className="h-8 w-8 items-center py-1 text-rose-500"/>}
+                    {row.original.type}
+                </div>)
         },
         {
             accessorKey: "amount",

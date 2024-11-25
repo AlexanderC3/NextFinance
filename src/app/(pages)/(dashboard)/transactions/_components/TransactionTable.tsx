@@ -3,7 +3,7 @@
 import * as React from "react"
 import { GetTransactionsHistoryResponseType } from "@/app/api/transactions-history/route"
 import { useQuery } from "@tanstack/react-query"
-import {ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable} from "@tanstack/react-table"
+import {ColumnFiltersState, flexRender, getCoreRowModel, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable} from "@tanstack/react-table"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table"
 import SkeletonWrapper from "@/components/SkeletonWrapper"
 import { DataTableFacetedFilter } from "@/components/datatable/FacetedFilters"
@@ -13,6 +13,7 @@ import {download, generateCsv, mkConfig} from "export-to-csv"
 import { Button } from "@/components/ui/button"
 import { DownloadIcon } from "lucide-react"
 import { getTransactionColumns } from "@/components/datatable/Columns"
+import { Input } from "@/components/ui/input"
 
 // interface Props {
 //     from: Date,
@@ -34,7 +35,11 @@ const csvConfig = mkConfig({
 function TransactionTable() {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-    
+    // const [dateRange, setDateRange] = React.useState<{ from: Date; to: Date }>({
+    //   from: new Date(new Date().getFullYear(), 0, 1),
+    //   to: new Date()
+    // });
+
     const history = useQuery<GetTransactionsHistoryResponseType>({
         // queryKey: ["transactions","history",from,to],
         // queryFn: () => fetch(`/api/transactions-history?from=${from}&to=${to}`).then((res) => res.json())
@@ -57,11 +62,19 @@ function TransactionTable() {
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        getFacetedRowModel: getFacetedRowModel(),
+        getFacetedUniqueValues: getFacetedUniqueValues(),
         state: {
             sorting,
             columnFilters,
         },
     })
+
+    // const handleDateSelect = ({ from, to }: { from: Date; to: Date }) => {
+    //     setDateRange({ from, to });
+    //     // Filter table data based on selected date range
+    //     table.getColumn("date")?.setFilterValue([from, to]);
+    //   };
 
     const categoriesOptions = React.useMemo(() => {
         const categoriesMap = new Map();
@@ -79,6 +92,10 @@ function TransactionTable() {
     <div className="w-full">
         <div className="flex flex-wrap items-end justify-between gap-2 py-4">
             <div className="flex gap-2">
+                <Input placeholder="Filter description" value={(table.getColumn("description")?.getFilterValue() as string) ?? ""} onChange={(event) => {
+                    table.getColumn("description")?.setFilterValue(event.target.value);
+                    }} className="h-8 w-[150px] lg:w-[250px]"
+                />
                 {table.getColumn("category") && (
                     <DataTableFacetedFilter title="category" column={table.getColumn("category")} options={categoriesOptions} />
                 )}
