@@ -73,17 +73,41 @@ body {
 }
 
 /* styling for in progress return */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 90deg;
+  inherits: true;
+}
+
+@property --gradX {
+  syntax: '<percentage>';
+  initial-value: 50%;
+  inherits: true;
+}
+
+@property --gradY {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
 .inProgress {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
-  
+  width: 100vw;
+
   p {
+    --d: 2500ms;
+    --angle: 60deg;
+    --gradX: 100%;
+    --gradY: 50%;
+    --c1: rgba(161, 155, 155, 0.5);
+    --c2: rgba(168, 239, 255, 0);
     text-transform: uppercase;
     font-weight: 700;
     font-size: 6vw;
-    text-shadow: 3px 3px rgba(255, 255, 255, 0.1);
     font-family: bebas neue;
     background: linear-gradient(45deg,#845ec2,#d65db1,#ff9671,#ffc75f);
     background-size: 300%;
@@ -92,7 +116,12 @@ body {
     -webkit-text-fill-color: transparent;
     text-align: center;
     line-height: 2;
-    animation: animate 5s ease-in-out infinite;
+    width: fit-content;
+    padding: 1vh 3vw;
+    margin: 0 auto;
+    border: 0.5rem solid;
+    border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
+    animation: animate 5s ease-in-out infinite, borderRotate var(--d) linear infinite forwards;
   }
 }
 
@@ -106,4 +135,10 @@ body {
   100% {
     background-position: 0 50%;
   }
+}
+
+@keyframes borderRotate {
+	100% {
+		--angle: 420deg;
+	}
 }

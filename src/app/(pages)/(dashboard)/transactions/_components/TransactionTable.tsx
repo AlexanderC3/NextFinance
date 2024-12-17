@@ -72,8 +72,6 @@ function TransactionTable() {
         return Array.from(uniqueCategories)
     },[history.data])
 
-    console.log(history.data)
-
   return (
     <div className="w-full">
         <div className="flex flex-wrap items-end justify-between gap-2 py-4">

@@ -38,7 +38,7 @@ export default function RootLayout({
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Toaster richColors position="bottom-right"/>
           {isInProgress ? <div className="inProgress">
-              <p>V{currentVersion+1} in progress</p>
+              <p className="progress1">V{currentVersion+1} in progress! 🎉</p>
           </div> : 
            <RootProviders>{children}</RootProviders>
           }
