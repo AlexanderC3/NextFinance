@@ -15,14 +15,8 @@ import { DownloadIcon } from "lucide-react"
 import { getTransactionColumns } from "@/components/datatable/Columns"
 import { Input } from "@/components/ui/input"
 
-// interface Props {
-//     from: Date,
-//     to: Date
-// }
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const emptyData:any[] = [];
-
 const columns = getTransactionColumns();
 
 const csvConfig = mkConfig({
@@ -35,10 +29,6 @@ const csvConfig = mkConfig({
 function TransactionTable() {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-    // const [dateRange, setDateRange] = React.useState<{ from: Date; to: Date }>({
-    //   from: new Date(new Date().getFullYear(), 0, 1),
-    //   to: new Date()
-    // });
 
     const history = useQuery<GetTransactionsHistoryResponseType>({
         // queryKey: ["transactions","history",from,to],
@@ -69,13 +59,7 @@ function TransactionTable() {
             columnFilters,
         },
     })
-
-    // const handleDateSelect = ({ from, to }: { from: Date; to: Date }) => {
-    //     setDateRange({ from, to });
-    //     // Filter table data based on selected date range
-    //     table.getColumn("date")?.setFilterValue([from, to]);
-    //   };
-
+      
     const categoriesOptions = React.useMemo(() => {
         const categoriesMap = new Map();
         history.data?.forEach((transaction) => {
@@ -87,6 +71,8 @@ function TransactionTable() {
         const uniqueCategories = new Set(categoriesMap.values())
         return Array.from(uniqueCategories)
     },[history.data])
+
+    console.log(history.data)
 
   return (
     <div className="w-full">

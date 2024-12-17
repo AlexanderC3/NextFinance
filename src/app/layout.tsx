@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   description: "AlexanderC3 finance webapp",
 };
 
+//set site in progress -> just returning "v{x} in progress", current version v1.
+const currentVersion = 1;
+const isInProgress = true;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,7 +37,11 @@ export default function RootLayout({
       }}>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Toaster richColors position="bottom-right"/>
-          <RootProviders>{children}</RootProviders>
+          {isInProgress ? <div className="inProgress">
+              <p>V{currentVersion+1} in progress</p>
+          </div> : 
+           <RootProviders>{children}</RootProviders>
+          }
         </body>
       </html>
     </ClerkProvider>
