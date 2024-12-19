@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 //set site in progress -> just returning "v{x} in progress", current version v1.
 const currentVersion = 1;
-const isInProgress = true;
+const isInProgress = false;
 
 export default function RootLayout({
   children,
